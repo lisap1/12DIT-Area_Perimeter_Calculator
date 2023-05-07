@@ -1,9 +1,19 @@
 # imports
 
 # functions go here
-
-# function for selecting shape (keep dictionary on the outside keep the function generic)
-
+# ask question and check if input is in list
+def q_in_list(question, lists, error):
+    # loop until valid answer
+    valid = False
+    while not valid:
+        response = input(question).lower()
+        for var_list in lists:
+            if response in var_list:
+                response = var_list[0].title()
+                return response
+        # if invalid display error
+        else:
+            print(error)
 
 # function for checking numbers (num_check)
 
@@ -19,9 +29,10 @@
 # Triangle(4): base(x), height(h), side 2(y), side 3(z)
 # Parallelogram(3): base(x), length(y), height(h)
 
-# Maybe do lists for each shape with each required input
+# Maybe do lists for each shape with each input
 # For item in list
 # input(list[0])
+
 
 # function for inputting dimensions
 
@@ -32,15 +43,28 @@
 
 # setting up dictionaries and lists
     # Different shape names dictionary
-    # List of formulas for each shape
+valid_shapes = [
+    ["rectangle", "rec", "rec", "r"],
+    ["triangle", "tri", "t"],
+    ["parallelogram", "para", "parallel", "p"],
+    ["circle", "cir", "c"],
+    ["xxx"]
+]
+
+# List of formulas for each shape
 # Keep lists for dimensions, (side 1=x, height=h, side 2=y, side 3=z, radius=r)
 
 
 # Start loop
-# Instructions
+shape = ''
+while shape != 'Xxx':
+    # Instructions
 
-# Pick what shape
-
+    # Ask user what shape they would like to select
+    shape = q_in_list("Select shape: ", valid_shapes, "Error - Please enter rectangle, circle, "
+                                                      "triangle or parallelogram")
+    # print shape for testing purposes
+    print(shape)
 # Area or perimeter( if applicable)
 
 # Enter dimensions
