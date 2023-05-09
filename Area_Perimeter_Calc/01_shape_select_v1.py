@@ -8,7 +8,7 @@ valid_shapes = [
 
 
 # functions
-def q_in_list(question, lists, error):
+def in_list(question, lists, error):
     # loop until valid answer
     valid = False
     while not valid:
@@ -25,6 +25,6 @@ def q_in_list(question, lists, error):
 # Loop until valid answer
 shape = ''
 while shape != 'Xxx':
-    shape = q_in_list("Select shape: ", valid_shapes, "Error - Please enter rectangle, circle, "
-                                                      "triangle or parallelogram")
+    shape = in_list("Select shape: ", valid_shapes, "Error - Please enter rectangle, circle, "
+                                                    "triangle or parallelogram")
     print(shape)
