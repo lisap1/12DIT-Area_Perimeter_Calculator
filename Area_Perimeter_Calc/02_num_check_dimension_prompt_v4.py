@@ -1,14 +1,15 @@
 def num_check(num):
     # check if num is within range, 0 - 999
-    print(num)
     try:
         if 0 < float(num) < 1000:
-            # num.round(num, 4)
+            # rounds to 3 decimal points
             num = round(float(num), 3)
-            print(num)
-            return "valid"
-    finally:
+            return num
+    # if value error returns error
+    except ValueError:
         return "Invalid"
+    # if any other error, also returns invalid
+    return "Invalid"
     # round num to 4 digits
     # allow floats and integers
 
