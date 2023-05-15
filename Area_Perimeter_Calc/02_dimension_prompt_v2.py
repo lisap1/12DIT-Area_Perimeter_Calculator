@@ -48,7 +48,12 @@ for x in range(0, 6):
             for i in range(len(shape_dimensions[shape]) - 1):
                 inputted_dimensions[i] = input(shape_dimensions[shape][i])
                 history[i].append(inputted_dimensions[i])
-
+        else:
+            inputted_dimensions = dimensions.copy()
+            # use dict to ask user for dimension input
+            for i in range(len(shape_dimensions[shape])):
+                inputted_dimensions[i] = input(shape_dimensions[shape][i])
+                history[i].append(inputted_dimensions[i])
     else:
         inputted_dimensions = dimensions.copy()
         # use dict to ask user for dimension input

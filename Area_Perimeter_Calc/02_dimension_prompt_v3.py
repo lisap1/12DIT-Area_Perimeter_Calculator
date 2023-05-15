@@ -13,6 +13,12 @@ def in_list(question, lists, error):
             print(error)
 
 
+# def num_check(num):
+    # check if num is within range, 0 - 999
+    # round num to 4 digits
+    # allow floats and integers
+
+
 # dictionary with shape as key, dimensions
 shape_dimensions = {'Rectangle': ['height: ', 'base: '],
                     'Circle': ['radius: '],
@@ -43,18 +49,26 @@ for x in range(0, 6):
         area_perimeter = in_list("Calculate area or perimeter?: ", valid_area_perimeter,
                                  "Error - Please enter either area or perimeter")
         # if they choose perimeter, it excludes the last input, height
-        if area_perimeter == 'Perimeter':
+        valid_num = False
+        while not valid_num:
+            if not valid_num and area_perimeter == 'Perimeter':
+                inputted_dimensions = dimensions.copy()
+                for i in range(len(shape_dimensions[shape]) - 1):
+                    inputted_dimensions[i] = input(shape_dimensions[shape][i])
+                    history[i].append(inputted_dimensions[i])
+            else:
+                inputted_dimensions = dimensions.copy()
+                # use dict to ask user for dimension input
+                for i in range(len(shape_dimensions[shape])):
+                    inputted_dimensions[i] = input(shape_dimensions[shape][i])
+                    history[i].append(inputted_dimensions[i])
+        else:
             inputted_dimensions = dimensions.copy()
-            for i in range(len(shape_dimensions[shape]) - 1):
+            # use dict to ask user for dimension input
+            for i in range(len(shape_dimensions[shape])):
                 inputted_dimensions[i] = input(shape_dimensions[shape][i])
                 history[i].append(inputted_dimensions[i])
+                # x = 3 - len(shape_dimensions[shape])
+                # history[x].append(0)
 
-    else:
-        inputted_dimensions = dimensions.copy()
-        # use dict to ask user for dimension input
-        for i in range(len(shape_dimensions[shape])):
-            inputted_dimensions[i] = input(shape_dimensions[shape][i])
-            history[i].append(inputted_dimensions[i])
-            x = 3 - len(shape_dimensions[shape])
-            history[x].append(0)
-    print(history)
+        # print(history)
