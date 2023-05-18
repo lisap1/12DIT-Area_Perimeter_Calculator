@@ -10,8 +10,6 @@ def num_check(num):
         return "Invalid"
     # if any other error, also returns invalid
     return "Invalid"
-    # round num to 4 digits
-    # allow floats and integers
 
 
 valid = False

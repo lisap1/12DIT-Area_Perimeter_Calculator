@@ -15,8 +15,20 @@ def q_in_list(question, lists, error):
         else:
             print(error)
 
-# function for checking numbers (num_check)
 
+# function for checking numbers (num_check)
+def num_check(num):
+    # check if num is within range, 0 - 999
+    try:
+        if 0 < float(num) < 1000:
+            # rounds to 3 decimal points
+            num = round(float(num), 3)
+            return num
+    # if value error returns error
+    except ValueError:
+        return "Invalid"
+    # if any other error, also returns invalid
+    return "Invalid"
 
 # function for string check (checking if person entered area or perimeter)
 
