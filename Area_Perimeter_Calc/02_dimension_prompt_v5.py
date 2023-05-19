@@ -1,4 +1,19 @@
 # functions
+
+def num_check(num):
+    # check if num is within range, 0 - 999
+    try:
+        if 0 < float(num) < 1000:
+            # rounds to 3 decimal points
+            num = round(float(num), 3)
+            return num
+    # if value error returns error
+    except ValueError:
+        return "Invalid"
+    # if any other error, also returns invalid
+    return "Invalid"
+
+
 def in_list(question, lists, error):
     # loop until valid answer
     valid = False
@@ -17,7 +32,13 @@ def dimension_q(subtractor):
     inputted_dimensions = dimensions.copy()
     # use dict to ask user for dimension input
     for i in range(len(shape_dimensions[shape]) + subtractor):
-        inputted_dimensions[i] = input(shape_dimensions[shape][i])
+        validity = "Invalid"
+        # checking if input is valid and numerical
+        while validity == "Invalid":
+            inputted_dimensions[i] = input(shape_dimensions[shape][i])
+            validity = num_check(inputted_dimensions[i])
+        print(inputted_dimensions)
+        # adding inputted dimensions to list
         history[i].append(inputted_dimensions[i])
     return history, inputted_dimensions
 
@@ -59,6 +80,7 @@ for x in range(0, 6):
             subtract = 0
     else:
         subtract = 0
+    # add dimensions to list to display history at the end
     dimension_history = dimension_q(subtract)
     x = len(shape_dimensions[shape]) + subtract
     for z in range(x, 4):
