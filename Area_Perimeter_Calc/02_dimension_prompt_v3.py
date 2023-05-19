@@ -16,11 +16,24 @@ def in_list(question, lists, error):
 def dimension_q(subtractor):
     inputted_dimensions = dimensions.copy()
     # use dict to ask user for dimension input
-    # if subtractor == -1:
     for i in range(len(shape_dimensions[shape]) + subtractor):
         inputted_dimensions[i] = input(shape_dimensions[shape][i])
         history[i].append(inputted_dimensions[i])
-    return history
+    return history, inputted_dimensions
+
+
+def num_check(num):
+    # check if num is within range, 0 - 999
+    try:
+        if 0 < float(num) < 1000:
+            # rounds to 3 decimal points
+            num = round(float(num), 3)
+            return num
+    # if value error returns error
+    except ValueError:
+        return "Invalid"
+    # if any other error, also returns invalid
+    return "Invalid"
 
 
 history = [
@@ -60,9 +73,9 @@ for x in range(0, 6):
             subtract = 0
     else:
         subtract = 0
-    ap_history = dimension_q(subtract)
-    # x = 3 - len(shape_dimensions[shape])
-    # history[x].append(0)
-    # print(dimension)
-
-    # print(history)
+    dimension_history = dimension_q(subtract)
+    x = len(shape_dimensions[shape]) + subtract
+    for z in range(x, 4):
+        history[x].append('0')
+        x += 1
+    print(dimension_history[0])
