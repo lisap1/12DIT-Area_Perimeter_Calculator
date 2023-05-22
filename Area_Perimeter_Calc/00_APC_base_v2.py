@@ -31,7 +31,7 @@ def num_check(num):
     return "Invalid"
 
 
-def dimension_q(subtractor):
+def dimension_q(subtractor, error):
     inputted_dimensions = dimensions.copy()
     # use dict to ask user for dimension input
     for i in range(len(shape_dimensions[shape]) + subtractor):
@@ -40,6 +40,8 @@ def dimension_q(subtractor):
         while validity == "Invalid":
             inputted_dimensions[i] = input(shape_dimensions[shape][i])
             validity = num_check(inputted_dimensions[i])
+            if validity == "Invalid":
+                print(error)
         # adding inputted dimensions to list
         history[i].append(inputted_dimensions[i])
     return history, inputted_dimensions
@@ -106,12 +108,11 @@ while shape != 'Xxx':
     else:
         subtract = 0
     # add dimensions to list to display history at the end
-    dimension_history = dimension_q(subtract)
+    dimension_history = dimension_q(subtract, "Please enter a number between 0.1 and 999")
     x = len(shape_dimensions[shape]) + subtract
     for z in range(x, 4):
         history[x].append('0')
         x += 1
-    print(dimension_history[0])
 # Calculations
 
 # Add to list
