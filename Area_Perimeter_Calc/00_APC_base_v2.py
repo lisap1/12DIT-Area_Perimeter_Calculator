@@ -75,7 +75,7 @@ shape_dimensions = {'Rectangle': ['height: ', 'base: '],
                     'Triangle': ['base: ', 'side 1: ', 'side 2: ', 'height: '],
                     'Parallelogram': ['base: ', 'sides: ', 'height: ']}
 
-dimensions = ['x', 'y', 'z', 'a']
+dimensions = ['x', 'y', 'z', 'h']
 
 # list for valid area/perimeter responses
 valid_area_perimeter = [
