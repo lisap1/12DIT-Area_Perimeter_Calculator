@@ -1,14 +1,20 @@
 import math
 # functions
 # function for calculating area/perimeter
+
+
+def formula_calc(formula, outcome, placement):
+    calc = formula[shape]
+    history[placement].append(calc)
+    print(outcome + str(calc))
+    return calc
 # get list of formulas and dimensions
 # try, except, run the calculations
-# if invalid return invalid
 # return area and/or perimeter calculations
 
 
 # lists
-inputted_dimensions = ['5', '3', '4', '2.41']
+inputted_dimensions = ['10', '1', '2', '2.41']
 
 x = float(inputted_dimensions[0])
 y = float(inputted_dimensions[1])
@@ -49,14 +55,9 @@ history = [
     ]
 
 # main program
-for q in range(0, 4):
+for q in range(0, 6):
     # basic shape selection
     shape = input("select shape: ")
     # run the calculation function with the inputted dimensions
-    area = area_formula[shape]
-    perimeter = perimeter_formula[shape]
-    print(area, perimeter)
-    history[4].append(area)
-    history[5].append(perimeter)
-    # print history to check for correct output
-    print(history)
+    area = formula_calc(area_formula, 'Area: ', 4)
+    perimeter = formula_calc(perimeter_formula, 'Perimeter: ', 5)
