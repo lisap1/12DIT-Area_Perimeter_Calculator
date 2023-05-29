@@ -58,5 +58,7 @@ for q in range(0, 4):
     print(area, perimeter)
     history[4].append(area)
     history[5].append(perimeter)
+    print(area)
+    history[4].append(area)
     # print history to check for correct output
     print(history)
