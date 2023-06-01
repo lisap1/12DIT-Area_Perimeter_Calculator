@@ -1,12 +1,12 @@
 import math
+
+
 # functions
 # function for calculating area/perimeter
-
-
 def formula_calc(formula, outcome, placement):
     calc = formula[shape]
-    history[placement].append(calc)
-    print(outcome + str(calc))
+    history[placement].append(str(calc)[1:-1])
+    print(outcome + str(calc)[1:-1])
     return calc
 # get list of formulas and dimensions
 # try, except, run the calculations
@@ -14,7 +14,7 @@ def formula_calc(formula, outcome, placement):
 
 
 # lists
-inputted_dimensions = ['10', '1', '2', '2.41']
+inputted_dimensions = ['5', '3', '4', '2.41']
 
 x = float(inputted_dimensions[0])
 y = float(inputted_dimensions[1])
