@@ -1,5 +1,5 @@
 # imports
-import math
+from sympy import symbols, pi
 
 
 # functions go here
@@ -49,14 +49,6 @@ def dimension_q(subtractor, error):
     return inputted_dimensions
 
 
-# function for calculating area/perimeter
-def formula_calc(formula, outcome, placement):
-    calc = formula[shape]
-    history[placement].append(calc[1:-1])
-    print(outcome + str(calc)[1:-1])
-    return calc
-
-
 # function for doing area and perimeter  calculations
 # (store the formulas in a dictionary somewhere else make this function generic and reusable)
     # Area = calculator(x, y, h)
@@ -68,7 +60,7 @@ valid_shapes = [
     ["triangle", "tri", "t"],
     ["parallelogram", "para", "parallel", "p"],
     ["circle", "cir", "c"],
-    ["xxx"]
+    ["xxx", "x"]
 ]
 
 # dictionary with shape as key, dimensions
@@ -77,24 +69,18 @@ shape_dimensions = {'Rectangle': ['height: ', 'base: '],
                     'Triangle': ['base: ', 'side 1: ', 'side 2: ', 'height: '],
                     'Parallelogram': ['base: ', 'sides: ', 'height: ']}
 
+x, y, z, h = symbols("x, y, z, h")
 
-dimension_history = [0, 0, 0, 0, 0]
-
-x = float(dimension_history[0])
-y = float(dimension_history[1])
-z = float(dimension_history[2])
-h = float(dimension_history[3])
-
-area_formula = {'Rectangle': [x * y],
-                'Circle': [math.pow(x, 2) * math.pi],
-                'Triangle': [(x * h)/2],
-                'Parallelogram': [h * x]
+area_formula = {'Rectangle': x * y,
+                'Circle': float(pi) * x ** 2,
+                'Triangle': (x * h)/2,
+                'Parallelogram': h * x
                 }
 
-perimeter_formula = {'Rectangle': [2 * x + 2 * y],
-                     'Circle': [2 * math.pi * x],
-                     'Triangle':  [x + y + z],
-                     'Parallelogram': [2 * x + 2 * y]
+perimeter_formula = {'Rectangle': 2 * x + 2 * y,
+                     'Circle': 2 * float(pi) * x,
+                     'Triangle':  x + y + z,
+                     'Parallelogram': 2 * x + 2 * y
                      }
 
 dimensions = ['x', 'y', 'z', 'h']
@@ -126,6 +112,8 @@ while shape != 'Xxx':
     # Ask user what shape they would like to select
     shape = in_list("Select shape: ", valid_shapes, "Error - Please enter rectangle, circle, "
                                                     "triangle or parallelogram")
+    if shape == "Xxx":
+        break
     if shape == 'Triangle' or shape == 'Parallelogram':
         # check for correct area/perimeter input
         area_perimeter = in_list("Calculate area or perimeter?: ", valid_area_perimeter,
@@ -136,17 +124,36 @@ while shape != 'Xxx':
         else:
             subtract = 0
     else:
+        area_perimeter = ''
         subtract = 0
     # add dimensions to list to display history at the end
     dimension_history = dimension_q(subtract, "Please enter a number between 0.1 and 999")
-    x = len(shape_dimensions[shape]) + subtract
-    for z in range(x, 4):
-        history[x].append('0')
-        x += 1
+    a = len(shape_dimensions[shape]) + subtract
+    for a in range(a, 4):
+        history[a].append('0')
+        a += 1
 # Calculations
-    area = formula_calc(area_formula, 'Area: ', 4)
-    perimeter = formula_calc(perimeter_formula, 'Perimeter: ', 5)
-
-# Add to list
+    if area_perimeter == "Perimeter":
+        perimeter = perimeter_formula[shape].subs({x: dimension_history[0], y: dimension_history[1],
+                                                   z: dimension_history[2]})
+        print("Perimeter: " + str(round(perimeter, 3)))
+        history[5].append(round(perimeter, 3))
+        history[4].append('n/a')
+    elif area_perimeter == "Area":
+        area = area_formula[shape].subs({x: dimension_history[0], y: dimension_history[1], z: dimension_history[2],
+                                         h: dimension_history[3]})
+        print("Area: " + str(round(area, 3)))
+        history[4].append(round(area, 3))
+        history[5].append('n/a')
+    else:
+        area = area_formula[shape].subs({x: dimension_history[0], y: dimension_history[1], z: dimension_history[2],
+                                         h: dimension_history[3]})
+        perimeter = perimeter_formula[shape].subs({x: dimension_history[0], y: dimension_history[1],
+                                                   z: dimension_history[2], h: dimension_history[3]})
+        print("Area: " + str(round(area, 3)))
+        print("Perimeter: " + str(round(perimeter, 3)))
+        print()
+        history[4].append(round(area, 3))
+        history[5].append(round(perimeter, 3))
 
 # Display history

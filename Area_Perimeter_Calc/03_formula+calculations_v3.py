@@ -10,30 +10,13 @@
 #
 
 # main program returns [2, 3, x, h]
-# for float in [2, 3, x, h] ...
 
 # imports
 from sympy import symbols, pi
 
 
-# functions go here
-# function for calculating area/perimeter
-def formula_calc(formula, outcome, placement):
-    calc = formula[shape]
-    history[placement].append(calc[1:-1])
-    print(outcome + str(calc)[1:-1])
-    return calc
-
-
-# function for doing area and perimeter  calculations
-# (store the formulas in a dictionary somewhere else make this function generic and reusable)
-    # Area = calculator(x, y, h)
-    # Perimeter = calculator(x, y, z)
 # setting up dictionaries and lists
-x = symbols('x')
-y = symbols('y')
-z = symbols('z')
-h = symbols('h')
+x, y, z, h = symbols("x, y, z, h")
 
 area_formula = {'Rectangle': x * y,
                 'Circle': float(pi) * x ** 2,
