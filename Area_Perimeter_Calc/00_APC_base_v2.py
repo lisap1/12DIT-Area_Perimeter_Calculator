@@ -44,7 +44,7 @@ def dimension_q(subtractor, error):
                 print(error)
         # adding inputted dimensions to list
         history[i].append(inputted_dimensions[i])
-    return history, inputted_dimensions
+    return inputted_dimensions
 
 
 # function for doing area and perimeter  calculations
