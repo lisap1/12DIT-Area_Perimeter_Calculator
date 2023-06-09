@@ -2,7 +2,7 @@
 from sympy import symbols, pi
 
 
-# functions go here
+# functions
 # ask question and check if input is in list
 def in_list(question, lists, error):
     # loop until valid answer
@@ -33,6 +33,7 @@ def num_check(num):
     return "Invalid"
 
 
+# asks user for dimensions according to shape entered
 def dimension_q(subtractor, error):
     inputted_dimensions = dimensions.copy()
     # use dict to ask user for dimension input
@@ -49,6 +50,7 @@ def dimension_q(subtractor, error):
     return inputted_dimensions
 
 
+# calculates area/perimeter. Substitutes dimensions into given formula
 def calculations(formula, result, substitutions, placement):
     if area_perimeter == "Perimeter":
         product = formula.subs({x: substitutions[0], y: substitutions[1], z: substitutions[2]})
@@ -61,12 +63,8 @@ def calculations(formula, result, substitutions, placement):
     return product
 
 
-# function for doing area and perimeter  calculations
-# (store the formulas in a dictionary somewhere else make this function generic and reusable)
-    # Area = calculator(x, y, h)
-    # Perimeter = calculator(x, y, z)
 # setting up dictionaries and lists
-# Different shape names dictionary
+# shape names dictionary
 valid_shapes = [
     ["rectangle", "rec", "rec", "r"],
     ["triangle", "tri", "t"],
@@ -75,26 +73,30 @@ valid_shapes = [
     ["xxx", "x"]
 ]
 
-# dictionary with shape as key, dimensions
+# dimension questions for each shape
 shape_dimensions = {'Rectangle': ['height: ', 'base: '],
                     'Circle': ['radius: '],
                     'Triangle': ['base: ', 'side 1: ', 'side 2: ', 'height: '],
                     'Parallelogram': ['base: ', 'sides: ', 'height: ']}
 
+# stating symbols for sympy equations
 x, y, z, h = symbols("x, y, z, h")
 
+# area formula's according to shape
 area_formula = {'Rectangle': x * y,
                 'Circle': float(pi) * x ** 2,
                 'Triangle': (x * h)/2,
                 'Parallelogram': z * x
                 }
 
+# perimeter formula's according to shape
 perimeter_formula = {'Rectangle': 2 * x + 2 * y,
                      'Circle': 2 * float(pi) * x,
                      'Triangle':  x + y + z,
                      'Parallelogram': 2 * x + 2 * y
                      }
 
+# template for dimensions inputted by user
 dimensions = ['x', 'y', 'z', 'h']
 
 # list for valid area/perimeter responses
@@ -103,6 +105,7 @@ valid_area_perimeter = [
     ['perimeter', 'p', 'per']
 ]
 
+# list to keep track of all dimensions and calculations
 history = [
         [],
         [],
@@ -111,10 +114,6 @@ history = [
         [],
         []
     ]
-
-# List of formulas for each shape
-# Keep lists for dimensions, (side 1=x, height=h, side 2=y, side 3=z, radius=r)
-
 
 # Start loop
 shape = ''
@@ -126,6 +125,7 @@ while shape != 'Xxx':
                                                     "triangle or parallelogram")
     if shape == "Xxx":
         break
+    # if shape is triangle of parallelogram ask for area/perimeter
     if shape == 'Triangle' or shape == 'Parallelogram':
         # check for correct area/perimeter input
         area_perimeter = in_list("Calculate area or perimeter?: ", valid_area_perimeter,
@@ -138,13 +138,14 @@ while shape != 'Xxx':
     else:
         area_perimeter = ''
         subtract = 0
-    # add dimensions to list to display history at the end
+    # asks user for the dimensions of their shape
     dimension_history = dimension_q(subtract, "Please enter a number between 0.1 and 999")
+    # fills in the unused dimensions with 0
     a = len(shape_dimensions[shape]) + subtract
     for a in range(a, 4):
         history[a].append('0')
         a += 1
-# Calculations
+# does calculations with shape and dimensions, displays area and/or perimeter
     if area_perimeter == "Perimeter":
         perimeter = calculations(perimeter_formula[shape], "Perimeter: ", dimension_history, 5)
         history[4].append('n/a')
@@ -155,5 +156,4 @@ while shape != 'Xxx':
         area = calculations(area_formula[shape], "Area: ", dimension_history, 4)
         perimeter = calculations(perimeter_formula[shape], "Perimeter: ", dimension_history, 5)
     print()
-    print(history)
 # Display history
