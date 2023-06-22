@@ -80,6 +80,7 @@ for x in range(0, 6):
             subtract = 0
     else:
         subtract = 0
+        area_perimeter = ''
     # add dimensions to list to display history at the end
     dimension_history = dimension_q(subtract)
     x = len(shape_dimensions[shape]) + subtract

@@ -46,8 +46,11 @@ def dimension_q(subtractor, error):
             validity = num_check(inputted_dimensions[i])
             if validity == "Invalid":
                 print(error)
-        # adding inputted dimensions to list
-        history[i + 1].append(inputted_dimensions[i])
+        if shape == 'Parallelogram' and i == 2:
+            history[4].append(inputted_dimensions[i])
+        else:
+            # adding inputted dimensions to list
+            history[i + 1].append(inputted_dimensions[i])
     return inputted_dimensions
 
 
@@ -141,7 +144,7 @@ history_dict = {
     'Shape': history[0],
     'Base/Radius': history[1],
     'Side 1': history[2],
-    'Side 2/Height': history[3],
+    'Side 2': history[3],
     'Height': history[4],
     'Area': history[5],
     'Perimeter': history[6],
@@ -177,7 +180,10 @@ while shape != 'Xxx':
     # fills in the unused dimensions with 0
     a = len(shape_dimensions[shape]) + subtract
     for a in range(a, 4):
-        history[a + 1].append('n')
+        if shape == "Parallelogram" and area_perimeter == 'Area' and a == 3:
+            history[3].append('n')
+        else:
+            history[a + 1].append('n')
         a += 1
     # ask user for unit of measurement for their shape
     measurement = in_list("Unit of measurement: ", measurement_units,
