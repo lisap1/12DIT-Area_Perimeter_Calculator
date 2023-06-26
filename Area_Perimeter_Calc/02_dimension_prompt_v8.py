@@ -43,14 +43,13 @@ def dimension_q(subtractor):
         while validity == "Invalid":
             inputted_dimensions[i] = input(shape_dimensions[shape][i])
             validity = num_check(inputted_dimensions[i])
-        print(inputted_dimensions)
         # adding inputted dimensions to list
         if shape == 'Parallelogram' and i == 2:
             history[3].append(inputted_dimensions[i])
             # currently, inputted dimensions is wrong with parallelogram fix pls
         else:
             history[i].append(inputted_dimensions[i])
-    return history, inputted_dimensions
+    return inputted_dimensions
 
 
 history = [
@@ -61,7 +60,7 @@ history = [
     ]
 
 # dictionary with shape as key, dimensions
-shape_dimensions = {'Rectangle': ['height: ', 'base: '],
+shape_dimensions = {'Rectangle': ['base: ', 'height: '],
                     'Circle': ['radius: '],
                     'Triangle': ['base: ', 'side 1: ', 'side 2: ', 'height: '],
                     'Parallelogram': ['base: ', 'sides: ', 'height: ']}
@@ -73,6 +72,8 @@ valid_area_perimeter = [
     ['area', 'a'],
     ['perimeter', 'p', 'per']
 ]
+
+shape_count = 1
 
 
 # loop 6 times for testing purposes
@@ -93,11 +94,9 @@ for x in range(0, 6):
         area_perimeter = ''
     # add dimensions to list to display history at the end
     dimension_history = dimension_q(subtract)
-    x = len(shape_dimensions[shape]) + subtract
-    for z in range(x, 4):
-        if shape == "Parallelogram" and area_perimeter == 'Area' and x == 3:
-            history[2].append('n')
-        else:
-            history[x].append('0')
-        x += 1
-    print(dimension_history[0])
+    for c in range(0, len(dimension_history)):
+        if len(history[c]) < shape_count:
+            history[c].append('n')
+    shape_count += 1
+
+    print(history)
