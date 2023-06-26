@@ -24,14 +24,12 @@ def num_check(num):
     # check if num is within range, 0 - 999
     try:
         if 0 < float(num) < 1000:
-            # rounds to 3 decimal points
-            num = round(float(num), 3)
-            return num
+            return True
     # if value error returns error
     except ValueError:
-        return "Invalid"
+        return False
     # if any other error, also returns invalid
-    return "Invalid"
+    return False
 
 
 # asks user for dimensions according to shape entered
@@ -46,14 +44,15 @@ def dimension_q(subtractor, error):
         b = range(len(shape_dimensions[shape]) + subtractor)
     for i in b:
         # checking if input is valid and numerical
-        validity = "Invalid"
-        while validity == "Invalid":
+        valid = False
+        while not valid:
             inputted_dimensions[i] = input(shape_dimensions[shape][i])
-            validity = num_check(inputted_dimensions[i])
+            valid = num_check(inputted_dimensions[i])
+            if not valid:
+                print(error)
         # adding inputted dimensions to list
         if shape == 'Parallelogram' and i == 2:
             history[4].append(inputted_dimensions[i])
-            # currently, inputted dimensions is wrong with parallelogram fix pls
         else:
             history[i + 1].append(inputted_dimensions[i])
     return inputted_dimensions
