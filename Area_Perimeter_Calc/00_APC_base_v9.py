@@ -6,10 +6,11 @@ import pandas
 # functions
 # ask question and check if input is in list
 def in_list(question, lists, error):
-    # loop until valid answer
+    # loop until input is in list
     valid = False
     while not valid:
         response = input(question).lower()
+        # if input is valid, return response
         for var_list in lists:
             if response in var_list:
                 response = var_list[0].title()
@@ -19,7 +20,7 @@ def in_list(question, lists, error):
             print(error)
 
 
-# function for checking numbers (num_check)
+# function for checking numbers, numerical and within range
 def num_check(num):
     # check if num is within range, 0 - 999
     try:
@@ -35,7 +36,7 @@ def num_check(num):
 # asks user for dimensions according to shape entered
 def dimension_q(subtractor, error):
     inputted_dimensions = dimensions.copy()
-    # use dict to ask user for dimension input
+    # establishing ranges for asking dimensions
     if shape == "Triangle" and area_perimeter == "Area":
         b = list(range(0, 1)) + list(range(3, 4))
     elif shape == "Parallelogram" and area_perimeter == "Area":
@@ -43,18 +44,20 @@ def dimension_q(subtractor, error):
     else:
         b = range(len(shape_dimensions[shape]) + subtractor)
     for i in b:
-        # checking if input is valid and numerical
+        # asking user for inputs, makes sure is valid
         valid = False
         while not valid:
             inputted_dimensions[i] = input(shape_dimensions[shape][i])
             valid = num_check(inputted_dimensions[i])
             if not valid:
                 print(error)
-        # adding inputted dimensions to list
+        # if shape is parallelogram, reorders dimensions for data frame
         if shape == 'Parallelogram' and i == 2:
             history[4].append(inputted_dimensions[i])
         else:
+            # adding inputted dimensions to list
             history[i + 1].append(inputted_dimensions[i])
+    # returns valid list of dimensions
     return inputted_dimensions
 
 
@@ -65,6 +68,7 @@ def calculations(formula, result, substitutions, placement, unit):
     else:
         product = formula.subs({x: substitutions[0], y: substitutions[1], z: substitutions[2],
                                 h: substitutions[3]})
+    # adds unit of measurement to calculation
     if result == 'Area: ':
         unit = str(unit + '^2')
     product = round(product, 3)
@@ -144,6 +148,7 @@ history = [
         []
     ]
 
+# pandas dictionary
 history_dict = {
     'Shape': history[0],
     'Base/Radius': history[1],
@@ -155,6 +160,7 @@ history_dict = {
     'Unit': history[7]
 }
 
+# shape ascii for instructions
 shape_ascii = {
     'Rectangle': "_________________\n"
                  "|                 |\n"
@@ -201,8 +207,10 @@ while shape != 'Xxx':
     # Ask user what shape they would like to select
     shape = in_list("Select shape: ", valid_shapes, "Error - Please enter rectangle, circle, "
                                                     "triangle or parallelogram")
+    # exit code
     if shape == "Xxx":
         break
+    # adding shape to history dict
     history[0].append(shape)
     # if shape is triangle of parallelogram ask for area/perimeter
     if shape == 'Triangle' or shape == 'Parallelogram':
@@ -222,7 +230,7 @@ while shape != 'Xxx':
     else:
         area_perimeter = ''
         subtract = 0
-    # instructions for user to enter their dimensions
+    # instructions for user to enter shape dimensions
     if display_instructions == "Yes":
         print()
         print("Enter the dimensions according to the diagram\ninputs have to be numerical\n", shape_ascii[shape])
@@ -242,7 +250,7 @@ while shape != 'Xxx':
     measurement = in_list("Unit of measurement: ", measurement_units,
                           "Error - please enter a valid unit of measurement").lower()
     history[7].append(measurement)
-# does calculations with shape and dimensions, displays area and/or perimeter
+    # does calculations with shape and dimensions, displays area and/or perimeter
     if area_perimeter == "Perimeter":
         perimeter = calculations(perimeter_formula[shape], "Perimeter: ", dimension_history, 6, measurement)
         history[5].append('n')
@@ -254,14 +262,16 @@ while shape != 'Xxx':
         perimeter = calculations(perimeter_formula[shape], "Perimeter: ", dimension_history, 6, measurement)
     display_instructions = 'no'
     print()
-# Display history
+# Display history instructions
 print()
 print("Enter 'yes' to display the full dataframe with all inputs entered and calculations, "
       "enter 'no' to only display calculations")
+# asking user if they want to display whole dataframe
 full_display = in_list("Display whole dataframe?: ", yes_no, "Error - please enter yes or no")
 history_dict = pandas.DataFrame(history_dict)
 history_dict = history_dict.set_index('Shape')
 print()
+# display history dataframe
 if full_display == 'Yes':
     print(history_dict)
 else:
