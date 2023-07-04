@@ -187,17 +187,17 @@ shape_count = 1
 
 # check if the user wants instructions
 display_instructions = in_list("Display instructions?(enter yes or no) : ", yes_no, "Error - Please enter yes or no")
-
+print()
 # Start loop
 shape = ''
 while shape != 'Xxx':
-    print()
     # Instructions, selecting shape
     if display_instructions == "Yes":
-        print("Select a shape by typing it after 'Select shape: '. "
+        print("Select a shape by typing it after 'Select shape: '.\n"
               "You can select rectangle, circle, triangle or parallelogram.\n"
               "Shortcuts: enter the first letter of your chosen shape, "
-              "e.g. 'r' for rectangle\nEnter 'xxx' to exit the program")
+              "e.g. 'r' for rectangle")
+    print("Enter 'xxx' to exit the program and display table of calculations")
     # Ask user what shape they would like to select
     shape = in_list("Select shape: ", valid_shapes, "Error - Please enter rectangle, circle, "
                                                     "triangle or parallelogram")
@@ -208,7 +208,9 @@ while shape != 'Xxx':
     if shape == 'Triangle' or shape == 'Parallelogram':
         # instructions, area/perimeter
         if display_instructions == "Yes":
-            print("enter 'area' to calculate area of the shape, and 'perimeter' to calculate perimeter of the shape. ")
+            print()
+            print("enter 'area' to calculate area of the shape, and 'perimeter' to calculate perimeter of the shape\n"
+                  "Shortcuts: 'a' for area, 'p' for perimeter")
         # check for correct area/perimeter input
         area_perimeter = in_list("Calculate area or perimeter?: ", valid_area_perimeter,
                                  "Error - Please enter either area or perimeter")
@@ -222,9 +224,10 @@ while shape != 'Xxx':
         subtract = 0
     # instructions for user to enter their dimensions
     if display_instructions == "Yes":
-        print("Enter the dimensions according to the diagram\ninputs have to be numerical", shape_ascii[shape])
+        print()
+        print("Enter the dimensions according to the diagram\ninputs have to be numerical\n", shape_ascii[shape])
     # asks user for the dimensions of their shape
-    dimension_history = dimension_q(subtract, "Please enter a number between 0.1 and 999")
+    dimension_history = dimension_q(subtract, "Error - Please enter a number between 0.1 and 999")
     # fills in the unused dimensions with 'n'
     for c in range(1, len(dimension_history) + 1):
         if len(history[c]) < shape_count:
@@ -233,6 +236,7 @@ while shape != 'Xxx':
 
     # instructions, unit of measurement
     if display_instructions == "Yes":
+        print()
         print("enter a unit of measurement. e.g cm, miles, kilometres")
     # ask user for unit of measurement for their shape
     measurement = in_list("Unit of measurement: ", measurement_units,
@@ -248,15 +252,16 @@ while shape != 'Xxx':
     else:
         area = calculations(area_formula[shape], "Area: ", dimension_history, 5, measurement)
         perimeter = calculations(perimeter_formula[shape], "Perimeter: ", dimension_history, 6, measurement)
-    print()
     display_instructions = 'no'
+    print()
 # Display history
-if display_instructions == "Yes":
-    print("Enter 'yes' to display the full dataframe with all inputs entered and calculations, "
-          "enter 'no' to only display calculations")
-full_display = in_list("Display whole dataframe? ", yes_no, "Error - please enter yes or no")
+print()
+print("Enter 'yes' to display the full dataframe with all inputs entered and calculations, "
+      "enter 'no' to only display calculations")
+full_display = in_list("Display whole dataframe?: ", yes_no, "Error - please enter yes or no")
 history_dict = pandas.DataFrame(history_dict)
 history_dict = history_dict.set_index('Shape')
+print()
 if full_display == 'Yes':
     print(history_dict)
 else:

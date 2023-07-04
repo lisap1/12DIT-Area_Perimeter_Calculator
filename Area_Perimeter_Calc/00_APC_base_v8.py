@@ -220,7 +220,7 @@ while shape != 'Xxx':
         subtract = 0
     # instructions for user to enter their dimensions
     if display_instructions == "Yes":
-        print("Enter the dimensions according to the diagram\ninputs have to be numerical", shape_ascii[shape])
+        print("Enter the dimensions according to the diagram\n", shape_ascii[shape])
     # asks user for the dimensions of their shape
     dimension_history = dimension_q(subtract, "Please enter a number between 0.1 and 999")
     # fills in the unused dimensions with 'n'
