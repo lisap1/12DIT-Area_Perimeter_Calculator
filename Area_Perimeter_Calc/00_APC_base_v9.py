@@ -125,12 +125,12 @@ yes_no = [
 ]
 
 measurement_units = [
-    ['cm', 'centimeters', 'centi meters', 'centimetres', 'centi metres', 'centimeter'],
-    ['m', 'meters', 'metres', 'meter'],
+    ['cm', 'centimetres', 'centimetre', 'centimeter', 'centimeters'],
+    ['m', 'metre', 'metres', 'meter', 'meters'],
     ['in', 'inches', 'i', 'inch'],
-    ['km', 'kilometers', 'kilometres', 'kilo meters', 'kilo metres', 'kilometer'],
+    ['km', 'kilometre', 'kilometres', 'kilometer', 'kilometers'],
     ['mi', 'miles', 'mile'],
-    ['mm', 'millimeters', 'millimetres', 'millimeter', 'millimetre'],
+    ['mm', 'millimetre', 'millimetres', 'millimeter', 'millimeters'],
     ['ft', 'feet', 'foot'],
     ['yd', 'yards', 'yard'],
 ]
@@ -162,20 +162,20 @@ history_dict = {
 
 # shape ascii for instructions
 shape_ascii = {
-    'Rectangle': "_________________\n"
+    'Rectangle': " _________________\n"
                  "|                 |\n"
                  "|                 |  Height\n"
                  "|                 |\n"
                  " -----------------\n "
                  "       Base",
-    'Triangle': "           / \\\n"
+    'Triangle': "            / \\\n"
                 "           / |  \\\n"
                 "  Side 1  /  |    \\  Side 2\n"
                 "         /   | Height\n"
                 "        /    |        \\\n"
                 "       /-----|----------\\\n"
                 "             Base\n",
-    'Parallelogram': "       _____________________\n"
+    'Parallelogram': "        _____________________\n"
                      "       / |                  /\n"
                      "      /  |  Height         / Sides\n"
                      "     /   |                /\n"
@@ -199,11 +199,11 @@ shape = ''
 while shape != 'Xxx':
     # Instructions, selecting shape
     if display_instructions == "Yes":
-        print("Select a shape by typing it after 'Select shape: '.\n"
-              "You can select rectangle, circle, triangle or parallelogram.\n"
-              "Shortcuts: enter the first letter of your chosen shape, "
-              "e.g. 'r' for rectangle")
-    print("Enter 'xxx' to exit the program and display table of calculations")
+        print("Select a shape by typing it after 'Select shape: '\n"
+              "Select rectangle, circle, triangle or parallelogram\n"
+              "Shortcut: first letter of shape, e.g. 'r' --> 'rectangle'")
+    if shape_count > 1:
+        print("Enter 'xxx' to show calculation history and exit program")
     # Ask user what shape they would like to select
     shape = in_list("Select shape: ", valid_shapes, "Error - Please enter rectangle, circle, "
                                                     "triangle or parallelogram")
@@ -217,7 +217,7 @@ while shape != 'Xxx':
         # instructions, area/perimeter
         if display_instructions == "Yes":
             print()
-            print("enter 'area' to calculate area of the shape, and 'perimeter' to calculate perimeter of the shape\n"
+            print("Enter 'area' for area of the shape, or 'perimeter' for perimeter\n"
                   "Shortcuts: 'a' for area, 'p' for perimeter")
         # check for correct area/perimeter input
         area_perimeter = in_list("Calculate area or perimeter?: ", valid_area_perimeter,
@@ -233,7 +233,8 @@ while shape != 'Xxx':
     # instructions for user to enter shape dimensions
     if display_instructions == "Yes":
         print()
-        print("Enter the dimensions according to the diagram\ninputs have to be numerical\n", shape_ascii[shape])
+        print("Enter the dimensions according to the diagram. e.g. 4, 78, 3.56\n",)
+    print(shape_ascii[shape])
     # asks user for the dimensions of their shape
     dimension_history = dimension_q(subtract, "Error - Please enter a number between 0.1 and 999")
     # fills in the unused dimensions with 'n'
@@ -245,7 +246,7 @@ while shape != 'Xxx':
     # instructions, unit of measurement
     if display_instructions == "Yes":
         print()
-        print("enter a unit of measurement. e.g cm, miles, kilometres")
+        print("Enter a unit of measurement. e.g cm, miles, kilometres")
     # ask user for unit of measurement for their shape
     measurement = in_list("Unit of measurement: ", measurement_units,
                           "Error - please enter a valid unit of measurement").lower()
@@ -264,8 +265,8 @@ while shape != 'Xxx':
     print()
 # Display history instructions
 print()
-print("Enter 'yes' to display the full dataframe with all inputs entered and calculations, "
-      "enter 'no' to only display calculations")
+print("Enter 'yes' for full calculation history (all inputs and calculations), "
+      "'no' for only calculations\nShortcut: 'y' for yes, 'n' for no")
 # asking user if they want to display whole dataframe
 full_display = in_list("Display whole dataframe?: ", yes_no, "Error - please enter yes or no")
 history_dict = pandas.DataFrame(history_dict)
