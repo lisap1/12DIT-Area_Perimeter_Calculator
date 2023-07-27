@@ -22,9 +22,9 @@ def in_list(question, lists, error):
 
 # function for checking numbers, numerical and within range
 def num_check(num):
-    # check if num is within range, 0 - 999
+    # check if num is within range, 0.01 - 999
     try:
-        if 0 < float(num) < 1000:
+        if 0.01 <= float(num) < 1000:
             return True
     # if value error returns error
     except ValueError:
@@ -62,7 +62,7 @@ def dimension_q(subtractor, error):
 
 
 # calculates area/perimeter. Substitutes dimensions into given formula
-def calculations(formula, result, substitutions, placement, unit):
+def calculations(formula, result, substitutions, history_placement, unit):
     if area_perimeter == "Perimeter":
         product = formula.subs({x: substitutions[0], y: substitutions[1], z: substitutions[2]})
     else:
@@ -73,7 +73,7 @@ def calculations(formula, result, substitutions, placement, unit):
         unit = str(unit + '^2')
     product = round(product, 3)
     print(str(result) + str(product) + ' ' + str(unit))
-    history[placement].append(product)
+    history[history_placement].append(product)
     return product
 
 
@@ -96,14 +96,14 @@ shape_dimensions = {'Rectangle': ['base: ', 'height: '],
 # stating symbols for sympy equations
 x, y, z, h = symbols("x, y, z, h")
 
-# area formula's according to shape
+# area formula according to shape
 area_formula = {'Rectangle': x * y,
                 'Circle': float(pi) * x ** 2,
                 'Triangle': (x * h)/2,
                 'Parallelogram': z * x
                 }
 
-# perimeter formula's according to shape
+# perimeter formula according to shape
 perimeter_formula = {'Rectangle': 2 * x + 2 * y,
                      'Circle': 2 * float(pi) * x,
                      'Triangle':  x + y + z,
@@ -236,7 +236,7 @@ while shape != 'Xxx':
         print("Enter the dimensions according to the diagram. e.g. 4, 78, 3.56\n",)
     print(shape_ascii[shape])
     # asks user for the dimensions of their shape
-    dimension_history = dimension_q(subtract, "Error - Please enter a number between 0.1 and 999")
+    dimension_history = dimension_q(subtract, "Error - Please enter a number between 0.01 and 999")
     # fills in the unused dimensions with 'n'
     for c in range(1, len(dimension_history) + 1):
         if len(history[c]) < shape_count:
