@@ -22,6 +22,9 @@ def in_list(question, lists, error):
 
 # function for checking numbers, numerical and within range
 def num_check(num):
+    # allows exit code
+    if num == 'xxx':
+        return 'exit'
     # check if num is within range, 0.01 - 999
     try:
         if 0.01 <= float(num) < 1000:
@@ -49,6 +52,8 @@ def dimension_q(subtractor, error):
         while not valid:
             inputted_dimensions[i] = input(shape_dimensions[shape][i])
             valid = num_check(inputted_dimensions[i])
+            if valid == 'exit':
+                return 'xxx'
             if not valid:
                 print(error)
         # if shape is parallelogram, reorders dimensions for data frame
@@ -116,12 +121,13 @@ dimensions = ['x', 'y', 'z', 'h']
 # list for valid area/perimeter responses
 valid_area_perimeter = [
     ['area', 'a'],
-    ['perimeter', 'p', 'per']
+    ['perimeter', 'p', 'per'],
+    ['xxx']
 ]
 
 yes_no = [
     ['yes', 'y', 'ye'],
-    ['no', 'n']
+    ['no', 'n', 'xxx']
 ]
 
 measurement_units = [
@@ -210,8 +216,6 @@ while shape != 'Xxx':
     # exit code
     if shape == "Xxx":
         break
-    # adding shape to history dict
-    history[0].append(shape)
     # if shape is triangle of parallelogram ask for area/perimeter
     if shape == 'Triangle' or shape == 'Parallelogram':
         # instructions, area/perimeter
@@ -230,39 +234,49 @@ while shape != 'Xxx':
     else:
         area_perimeter = ''
         subtract = 0
-    # instructions for user to enter shape dimensions
-    if display_instructions == "Yes":
-        print()
-        print("Enter the dimensions according to the diagram. e.g. 4, 78, 3.56\n",)
-    print(shape_ascii[shape])
-    # asks user for the dimensions of their shape
-    dimension_history = dimension_q(subtract, "Error - Please enter a number between 0.01 and 999")
-    # fills in the unused dimensions with 'n'
-    for c in range(1, len(dimension_history) + 1):
-        if len(history[c]) < shape_count:
-            history[c].append('n')
-    shape_count += 1
+    if area_perimeter != 'Xxx':
+        # instructions for user to enter shape dimensions
+        if display_instructions == "Yes":
+            print()
+            print("Enter the dimensions according to the diagram. e.g. 4, 78, 3.56\n",)
+        print(shape_ascii[shape])
+        # asks user for the dimensions of their shape
+        dimension_history = dimension_q(subtract, "Error - Please enter a number between 0.01 and 999")
+        # if the user exited the program during dimension input, scrap the previous inputs
+        if dimension_history == 'xxx':
+            if len(history[1]) != len(history[2]):
+                history[1].pop()
+            if len(history[0]) != len(history[1]):
+                history[0].pop()
+        else:
+            # fills in the unused dimensions with 'n'
+            for c in range(1, len(dimension_history) + 1):
+                if len(history[c]) < shape_count:
+                    history[c].append('n')
+            shape_count += 1
 
-    # instructions, unit of measurement
-    if display_instructions == "Yes":
-        print()
-        print("Enter a unit of measurement. e.g cm, miles, kilometres")
-    # ask user for unit of measurement for their shape
-    measurement = in_list("Unit of measurement: ", measurement_units,
-                          "Error - please enter km, m, cm, mm, i, mi, ft or yd.").lower()
-    history[7].append(measurement)
-    # does calculations with shape and dimensions, displays area and/or perimeter
-    if area_perimeter == "Perimeter":
-        perimeter = calculations(perimeter_formula[shape], "Perimeter: ", dimension_history, 6, measurement)
-        history[5].append('n')
-    elif area_perimeter == "Area":
-        area = calculations(area_formula[shape], "Area: ", dimension_history, 5, measurement)
-        history[6].append('n')
-    else:
-        area = calculations(area_formula[shape], "Area: ", dimension_history, 5, measurement)
-        perimeter = calculations(perimeter_formula[shape], "Perimeter: ", dimension_history, 6, measurement)
-    display_instructions = 'no'
-    print()
+            # instructions, unit of measurement
+            if display_instructions == "Yes":
+                print()
+                print("Enter a unit of measurement. e.g cm, miles, kilometres")
+            # ask user for unit of measurement for their shape
+            measurement = in_list("Unit of measurement: ", measurement_units,
+                                  "Error - please enter km, m, cm, mm, i, mi, ft or yd.").lower()
+            history[7].append(measurement)
+        # does calculations with shape and dimensions, displays area and/or perimeter
+            if area_perimeter == "Perimeter":
+                perimeter = calculations(perimeter_formula[shape], "Perimeter: ", dimension_history, 6, measurement)
+                history[5].append('n')
+            elif area_perimeter == "Area":
+                area = calculations(area_formula[shape], "Area: ", dimension_history, 5, measurement)
+                history[6].append('n')
+            else:
+                area = calculations(area_formula[shape], "Area: ", dimension_history, 5, measurement)
+                perimeter = calculations(perimeter_formula[shape], "Perimeter: ", dimension_history, 6, measurement)
+            display_instructions = 'no'
+            # adding shape to history dict
+            history[0].append(shape)
+            print()
 # Display history instructions
 print()
 print("Enter 'yes' for full calculation history (all inputs and calculations), "

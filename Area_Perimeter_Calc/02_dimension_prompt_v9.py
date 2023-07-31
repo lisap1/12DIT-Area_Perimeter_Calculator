@@ -74,7 +74,8 @@ dimensions = ['x', 'y', 'z', 'a']
 # list for valid area/perimeter responses
 valid_area_perimeter = [
     ['area', 'a'],
-    ['perimeter', 'p', 'per']
+    ['perimeter', 'p', 'per'],
+    ['xxx']
 ]
 
 shape_count = 1
@@ -96,17 +97,21 @@ for x in range(0, 6):
     else:
         subtract = 0
         area_perimeter = ''
-    # add dimensions to list to display history at the end
-    dimension_history = dimension_q(subtract)
-    # if the user exited the program during dimension input, scrap the previous inputs
-    if dimension_history == 'xxx':
-        if len(history[0]) != len(history[1]):
-            history[0].pop()
+    # if the user enters xxx in area perimeter, skips dimension prompts
+    if area_perimeter != 'Xxx':
+        # add dimensions to list to display history at the end
+        dimension_history = dimension_q(subtract)
+        # if the user exited the program during dimension input, scrap the previous inputs
+        if dimension_history == 'xxx':
+            if len(history[1]) != len(history[2]):
+                history[1].pop()
+            if len(history[0]) != len(history[1]):
+                history[0].pop()
 
-    else:
-        for c in range(0, len(dimension_history)):
-            if len(history[c]) < shape_count:
-                history[c].append('n')
-        shape_count += 1
+        else:
+            for c in range(0, len(dimension_history)):
+                if len(history[c]) < shape_count:
+                    history[c].append('n')
+            shape_count += 1
 
     print(history)
