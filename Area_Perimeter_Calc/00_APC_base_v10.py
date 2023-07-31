@@ -261,7 +261,7 @@ while shape != 'Xxx':
                 print()
                 print("Enter a unit of measurement.\n"
                       "e.g. km, m, cm, mm, i, mi, ft, yd.\n"
-                      "You can type the full and shortened names, (kilometer, km)")
+                      "You can type the full and shortened names, (kilometre, km)")
             # ask user for unit of measurement for their shape
             measurement = in_list("Unit of measurement: ", measurement_units,
                                   "Error - please enter km, m, cm, mm, i, mi, ft or yd.").lower()
