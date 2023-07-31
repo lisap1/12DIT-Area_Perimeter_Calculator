@@ -216,6 +216,7 @@ while shape != 'Xxx':
     # exit code
     if shape == "Xxx":
         break
+    print("Enter 'xxx' at any point to restart")
     # if shape is triangle of parallelogram ask for area/perimeter
     if shape == 'Triangle' or shape == 'Parallelogram':
         # instructions, area/perimeter
@@ -258,7 +259,9 @@ while shape != 'Xxx':
             # instructions, unit of measurement
             if display_instructions == "Yes":
                 print()
-                print("Enter a unit of measurement. e.g cm, miles, kilometres")
+                print("Enter a unit of measurement.\n"
+                      "e.g. km, m, cm, mm, i, mi, ft, yd.\n"
+                      "You can type the full and shortened names, (kilometer, km)")
             # ask user for unit of measurement for their shape
             measurement = in_list("Unit of measurement: ", measurement_units,
                                   "Error - please enter km, m, cm, mm, i, mi, ft or yd.").lower()
