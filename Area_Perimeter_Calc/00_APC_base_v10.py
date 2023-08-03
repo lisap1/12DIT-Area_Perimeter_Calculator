@@ -139,8 +139,8 @@ measurement_units = [
     ['mm', 'millimetre', 'millimetres', 'millimeter', 'millimeters'],
     ['ft', 'feet', 'foot'],
     ['yd', 'yards', 'yard'],
+    ['n', '', 'no', 'n', 'none', 'xxx']
 ]
-
 
 # list to keep track of all dimensions and calculations
 history = [
@@ -222,7 +222,7 @@ while shape != 'Xxx':
         # instructions, area/perimeter
         if display_instructions == "Yes":
             print()
-            print("Enter 'area' for area of the shape, or 'perimeter' for perimeter\n"
+            print("Enter 'area' to calculate area of the shape, or 'perimeter' for perimeter\n"
                   "Shortcuts: 'a' for area, 'p' for perimeter")
         # check for correct area/perimeter input
         area_perimeter = in_list("Calculate area or perimeter?: ", valid_area_perimeter,
@@ -250,10 +250,10 @@ while shape != 'Xxx':
             if len(history[0]) != len(history[1]):
                 history[0].pop()
         else:
-            # fills in the unused dimensions with 'n'
+            # fills in the unused dimensions with blank space
             for c in range(1, len(dimension_history) + 1):
                 if len(history[c]) < shape_count:
-                    history[c].append('n')
+                    history[c].append('')
             shape_count += 1
 
             # instructions, unit of measurement
@@ -269,10 +269,10 @@ while shape != 'Xxx':
         # does calculations with shape and dimensions, displays area and/or perimeter
             if area_perimeter == "Perimeter":
                 perimeter = calculations(perimeter_formula[shape], "Perimeter: ", dimension_history, 6, measurement)
-                history[5].append('n')
+                history[5].append('')
             elif area_perimeter == "Area":
                 area = calculations(area_formula[shape], "Area: ", dimension_history, 5, measurement)
-                history[6].append('n')
+                history[6].append('')
             else:
                 area = calculations(area_formula[shape], "Area: ", dimension_history, 5, measurement)
                 perimeter = calculations(perimeter_formula[shape], "Perimeter: ", dimension_history, 6, measurement)
