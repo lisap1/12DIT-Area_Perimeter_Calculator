@@ -199,7 +199,7 @@ shape_count = 1
 
 # check if the user wants instructions
 display_instructions = in_list("Display instructions?(enter yes or no) : ", yes_no, "Error - Please enter yes or no")
-print()
+print("=============================================================================")
 # Start loop
 shape = ''
 while shape != 'Xxx':
@@ -209,8 +209,10 @@ while shape != 'Xxx':
               "Select rectangle, circle, triangle or parallelogram\n"
               "Shortcut: first letter of shape, e.g. 'r' --> 'rectangle'")
     if shape_count > 1:
+        print("=============================================================================")
         print("Enter 'xxx' to show calculation history and exit program")
     # Ask user what shape they would like to select
+    print()
     shape = in_list("Select shape: ", valid_shapes, "Error - Please enter rectangle, circle, "
                                                     "triangle or parallelogram")
     # exit code
@@ -222,7 +224,7 @@ while shape != 'Xxx':
         # instructions, area/perimeter
         if display_instructions == "Yes":
             print()
-            print("Enter 'area' to calculate area of the shape, or 'perimeter' for perimeter\n"
+            print("Enter 'area' to calculate area of the " + shape.lower() + ", or 'perimeter' for perimeter\n"
                   "Shortcuts: 'a' for area, 'p' for perimeter")
         # check for correct area/perimeter input
         area_perimeter = in_list("Calculate area or perimeter?: ", valid_area_perimeter,
@@ -239,7 +241,9 @@ while shape != 'Xxx':
         # instructions for user to enter shape dimensions
         if display_instructions == "Yes":
             print()
-            print("Enter the dimensions according to the diagram. e.g. 4, 78, 3.56\n",)
+            print("Enter the dimensions according to the diagram. e.g. 4, 78, 3.56\n"
+                  "You can enter any number between 0.01 - 999, including decimals",)
+        print()
         print(shape_ascii[shape])
         # asks user for the dimensions of their shape
         dimension_history = dimension_q(subtract, "Error - Please enter a number between 0.01 and 999")
@@ -253,7 +257,7 @@ while shape != 'Xxx':
             # fills in the unused dimensions with blank space
             for c in range(1, len(dimension_history) + 1):
                 if len(history[c]) < shape_count:
-                    history[c].append('')
+                    history[c].append('n')
             shape_count += 1
 
             # instructions, unit of measurement
@@ -261,7 +265,8 @@ while shape != 'Xxx':
                 print()
                 print("Enter a unit of measurement.\n"
                       "e.g. km, m, cm, mm, i, mi, ft, yd.\n"
-                      "You can type the full and shortened names, (kilometre, km)")
+                      "You can type the full and shortened names, (kilometre, km)\n"
+                      "Shortcut: for no unit, press enter")
             # ask user for unit of measurement for their shape
             measurement = in_list("Unit of measurement: ", measurement_units,
                                   "Error - please enter km, m, cm, mm, i, mi, ft or yd.").lower()
@@ -269,10 +274,10 @@ while shape != 'Xxx':
         # does calculations with shape and dimensions, displays area and/or perimeter
             if area_perimeter == "Perimeter":
                 perimeter = calculations(perimeter_formula[shape], "Perimeter: ", dimension_history, 6, measurement)
-                history[5].append('')
+                history[5].append('n')
             elif area_perimeter == "Area":
                 area = calculations(area_formula[shape], "Area: ", dimension_history, 5, measurement)
-                history[6].append('')
+                history[6].append('n')
             else:
                 area = calculations(area_formula[shape], "Area: ", dimension_history, 5, measurement)
                 perimeter = calculations(perimeter_formula[shape], "Perimeter: ", dimension_history, 6, measurement)
