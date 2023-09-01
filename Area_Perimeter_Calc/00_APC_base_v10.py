@@ -27,7 +27,7 @@ def num_check(num):
         return 'exit'
     # check if num is within range, 0.01 - 999
     try:
-        if 0.01 <= float(num) < 1000:
+        if 0.01 <= float(num) <= 999:
             return True
     # if value error returns error
     except ValueError:
